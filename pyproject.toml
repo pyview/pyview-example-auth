@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "pyview-example-auth"
+version = "0.0.1"
+readme = "readme.md"
+package-mode = false
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Typing :: Typed",
+]
+
+packages = [
+    { include = "pyview_example_auth", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.12"
+pyview-web = "^0.0.9a0"
+authlib = "^1.3.0"
+httpx = "^0.27.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+ruff = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
