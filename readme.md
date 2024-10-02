@@ -13,8 +13,8 @@ The example is set up to use google sign in, you will need to create a google pr
 This example is expecting the following environment variables to be set:
 
 ```sh
-export GOOGLE_CLIENT_ID="your-google-client-id"
-export GOOGLE_CLIENT_SECRET="your-google
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
 ```
 
 Or if you are using just, you can create a `.env` file in the root of the project with the following content:

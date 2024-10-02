@@ -16,4 +16,4 @@ class ProfileContext(TypedDict):
 @requires("authenticated", redirect="login")
 class ProfileLiveView(LiveView[ProfileContext]):
     async def mount(self, socket: LiveViewSocket[ProfileContext], session):
-        socket.context = {"user": session["user"]}
+        socket.context = ProfileContext({"user": session["user"]})
