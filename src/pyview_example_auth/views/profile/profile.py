@@ -1,5 +1,6 @@
+from typing import Optional, TypedDict
+
 from pyview import LiveView, LiveViewSocket
-from typing import TypedDict
 from pyview.auth import requires
 
 
@@ -7,6 +8,7 @@ class User(TypedDict):
     name: str
     email: str
     picture: str
+    auth_method: Optional[str]
 
 
 class ProfileContext(TypedDict):
@@ -16,4 +18,12 @@ class ProfileContext(TypedDict):
 @requires("authenticated", redirect="login")
 class ProfileLiveView(LiveView[ProfileContext]):
     async def mount(self, socket: LiveViewSocket[ProfileContext], session):
-        socket.context = ProfileContext({"user": session["user"]})
+        user_data = session["user"]
+        # Ensure all expected fields exist with defaults
+        user = User(
+            name=user_data.get("name", "Unknown"),
+            email=user_data.get("email", ""),
+            picture=user_data.get("picture", ""),
+            auth_method=user_data.get("auth_method"),
+        )
+        socket.context = ProfileContext(user=user)

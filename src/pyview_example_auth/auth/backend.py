@@ -2,7 +2,15 @@ from starlette.authentication import AuthCredentials, AuthenticationBackend, Sim
 
 
 class GoogleInfoBackend(AuthenticationBackend):
+    """Authentication backend supporting both OAuth and Passkey sessions."""
+
     async def authenticate(self, conn):
         if "user" in conn.session:
             user = conn.session["user"]
-            return AuthCredentials(["authenticated"]), SimpleUser(user["name"])
+            scopes = ["authenticated"]
+
+            # Add auth method specific scope if available
+            auth_method = user.get("auth_method", "oauth")
+            scopes.append(f"auth:{auth_method}")
+
+            return AuthCredentials(scopes), SimpleUser(user["name"])
